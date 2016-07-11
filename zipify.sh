@@ -3,7 +3,12 @@
 # Run this script from a given directory to zip all 'Solution' and 'Skeleton'
 # sub-directories automatically.
 
-# Runs removes all .gitignored files before zipping
+# Removes all .gitignored files before zipping
+
+if [[ `git status --porcelain` ]]; then 
+	echo 'Warning: unstaged changes. Stash or add your changes before zipifying.'
+	exit
+fi
 
 CURDIR=`pwd`
 cd `git rev-parse --show-toplevel`
