@@ -1,1 +1,0 @@
-git filter-branch -f --tag-name-filter cat --index-filter "git rm -r -f --cached --ignore-unmatch node_modules"  $INITIALCOMMIT..HEAD && rm -rf .git/refs/original/ && git reflog expire --expire=now --all && git gc --prune=now && git gc --aggressive --prune=now 

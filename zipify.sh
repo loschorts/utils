@@ -3,19 +3,20 @@
 # Run this script from a given directory to zip all 'Solution' and 'Skeleton'
 # sub-directories automatically.
 
-# Removes all .gitignored files before zipping
+# Requires all files to be added, since git clean will remove unstaged files.
 
 if [[ $(git status --porcelain) ]]; then 
 	echo 'Warning: unstaged changes. Stash or add your changes before zipifying.'
 	exit
 fi
 
-CURDIR=`pwd`
-# cd `git rev-parse --show-toplevel`
-# git clean -dfx
-# cd $CURDIR	
+# git clean to remove bulky .gitignored files
 
-# Zips all 'skeleton' and 'solution' directories
+CURDIR=`pwd`
+cd `git rev-parse --show-toplevel`
+git clean -dfx
+
+# Zips all 'skeleton' and 'solution' directories from the current directory down
 
 find . -type d -name "solution" -print | while read f; do
 	cd $CURDIR
@@ -24,7 +25,6 @@ find . -type d -name "solution" -print | while read f; do
   rm solution.zip
   zip -r "solution.zip" solution
 done
-
 
 find . -type d -name "skeleton" -print | while read f; do
   cd $CURDIR
@@ -35,4 +35,3 @@ find . -type d -name "skeleton" -print | while read f; do
 done
 
 cd $CURDIR
-
