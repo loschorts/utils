@@ -5,7 +5,7 @@
 
 # Removes all .gitignored files before zipping
 
-if [[ `git status --porcelain` ]]; then 
+if [[ $(git status --porcelain) ]]; then 
 	echo 'Warning: unstaged changes. Stash or add your changes before zipifying.'
 	exit
 fi
@@ -19,10 +19,12 @@ cd $CURDIR
 
 find . -type d -name "solution" -print | while read f; do
   DIR_NAME=`dirname $f` 
-  zip -r "$DIR_NAME/solution.zip" $f
+  echo $DIR_NAME
+  # zip -r "$DIR_NAME/solution.zip" $f
 done
 
 find . -type d -name "skeleton" -print | while read f; do
-    DIR_NAME=`dirname $f` 
-    zip -r "$DIR_NAME/skeleton.zip" $f
+  DIR_NAME=`dirname $f` 
+  echo $DIR_NAME
+    # zip -r "$DIR_NAME/skeleton.zip" $f
 done
